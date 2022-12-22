@@ -1,41 +1,11 @@
 <script setup>
-    import { supabase } from '../supabase.js';
-    import {ref, onMounted, computed} from 'vue'
-    import firstGroupStudent from './FirstGroupTable'
-    import secondGroupStudent from './SecondGroupTable'
-    import DashBoard from './DashBoard'
-    import StudentsPicker from './PickStudents';
-    import StudentsTable from './StudentsTable'
-
-
-    const routes = {
-    "/": DashBoard,
-    "/changeStudentFirstGroup": firstGroupStudent,
-    "/changeStudentSecondGroup": secondGroupStudent,
-    "/studentPick": StudentsPicker,
-    "/studentsTable": StudentsTable
-
-  }
-
-
-  const currentPath = ref(window.location.hash)
-
-  window.addEventListener('hashchange', () => {
-    currentPath.value = window.location.hash
-  })
-
-  const currentView = computed(() => {
-    return routes[currentPath.value.slice(1) || '/'] || NotFound
-  })
-
-
+    import { supabase } from '@/supabase';
+    import {ref, onMounted} from 'vue'
 
     const students = ref([])
     let firstActiveStudent = ref([])
     let secondActiveStudent = ref([])
 
-    let studentFromFirstGroup = ref([])
-    let studentFromSecondGroup = ref([])
 
     onMounted(() => {
         getStudents()
@@ -78,10 +48,6 @@
     <div class="other-things-template">
         <a href="#/studentsTable" class="see-all-btn"><h4>See All Students</h4></a>
     </div>
-
-
-    <component :is="currentView"/>
-
 </template>
 
 
