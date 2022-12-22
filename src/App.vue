@@ -1,31 +1,19 @@
 <script>
-  // import students from "../data" 
-  import {createApp, ref, computed} from 'vue'
-  import students from './pages/DashBoard.vue'
-  import DashBoard from './pages/DashBoard.vue'
-  import StudentsPicker from './components/StudentsPicker.vue'
-  import AddStudent from './pages/AddStudent' 
-  import PickStudents from './pages/AddStudent' 
-  import StudentsTable from './pages/AddStudent' 
+import {createApp} from 'vue'
+import Router from './Router.vue';
 
-  createApp({}).mount('#app')
+createApp({}).mount('#app')
+
 
 export default { 
   name: 'App', 
   components:{
-    'Dashboard': students,
-    'AddStudent': AddStudent,
-    'PickStudents': PickStudents,
-    'StudentsTable': StudentsTable
+    Router,
   }
 }
 </script>
 
 
 <template>
-  <Dashboard />
+  <Router/>
 </template>
-
-<style scoped>
-
-</style>
