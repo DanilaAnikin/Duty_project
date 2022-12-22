@@ -2,123 +2,135 @@
     import { supabase } from '../supabase.js';
     import {ref, onMounted} from 'vue'
 
+
     const students = ref([])
+    let firstActiveStudent = ref([])
+    let secondActiveStudent = ref([])
+
+    let studentFromFirstGroup = ref([])
+    let studentFromSecondGroup = ref([])
+
     onMounted(() => {
         getStudents()
     })
 
     const getStudents = async() => {
         const { data } = await supabase.from('Students').select();
+
         students.value = data;
-    }
 
-    const x = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eigth", "ninth", "tenth"]
-    const allStudents = []
+        firstActiveStudent.value = students.value.filter(student => student.active)[0]
+        secondActiveStudent.value = students.value.filter(student => student.active)[1]
 
-
-    students.value.forEach((student) => {
-        student.firstname = students.value.firstname
-        allStudents.push(student.firstname)
-    });
-
-    for(let i=0; i<students.value.length; i++){ 
-        let student = [x[i] + "student", students.value.firstname]
-        allStudents.push(student)
     }
 
 </script>
 
 <template>
-    <div class="whole-whole-template">
+    <div class="whole-students-template">
 
+        <div class="text">
+            <h1>This week are duty:</h1>
+        </div>
         
-        <div class="this-whole-template">
+        <div class="first-student">
+            <h2>{{(firstActiveStudent.firstname + " " + firstActiveStudent.lastname)}}</h2>
 
-            <div class="button-this">
-                <button>Change students</button>
-            </div>
 
-            <div class="this-text">
-                <h1>This week are duty:</h1>
-            </div>
-
-            <div v-for="student in students" :key="student.id" class="students-this">
-                <div v-if="(student.active === true)" class="this-if-students">
-                    <h2>{{student.firstname}} {{student.lastname}}</h2>
-                </div>
-                <div v-else>
-                    <p>nope</p>
-                </div>
-            </div>
-        
+            <a href="/changeStudentFirstGroup"  class="btn-fir"><h4>Change student</h4></a>            
         </div>
 
+        <div class="second-student">
+            <h2>{{(secondActiveStudent.firstname + " " + secondActiveStudent.lastname)}}</h2>
 
-        <div class="next-whole-template">
 
-            <div class="button-next">
-                <button>Change students</button>
-            </div>
-
-            <div class="next-text">
-                <h1>Next week are duty:</h1>
-            </div>
-
-            <div v-for="student in students" :key="student.id" class="students-next">
-                <div v-if="(student.active === false)" class="next-if-students">
-                    <h2>{{student.firstname}} {{student.lastname}}</h2>
-                </div>
-                <div v-else>
-                    <p>nope</p>
-                </div>
-            </div>
-
+            <a href="/changeStudentSecondGroup"  class="btn-sec"><h4>Change student</h4></a>
         </div>
-
 
     </div>
+    <div class="other-things-template">
+        <a href="/studentsTable" class="see-all-btn"><h4>See All Students</h4></a>
+    </div>
+
 </template>
 
 
-
 <style scoped>
-    .this-whole-template{
-        width: 100%;
-        max-width: 100vw;
-        height: 20vw;
-        border: 10px solid red;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .next-whole-template{
+    .whole-students-template{
+        margin: auto;
         margin-top: 10%;
-        width: 100%;
+        width: 60%;
         max-width: 100vw;
         height: 20vw;
-        border: 10px solid blue;
+        color: white;
+        background: rgb(2,0,36);
+        background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+        border-radius: 64px;
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    .this-text{
+    .text{
+        margin-right: 5%;
         display: inline-block;
     }
-    .next-text{
-        display: inline-block;
-    }
-    .students-this{
+    .first-student{
         display: inline-block;
         margin-left: 5%;
+        margin-top: 3%;
     }
-    .students-next{
+    .second-student{
         display: inline-block;
         margin-left: 5%;
+        margin-top: 3%;
     }
-    .button-next{
-        margin-right: 5%;
+    .btn-fir{
+        width: auto;
+        height: auto;
+        display: inline-block;
+        background: rgb(52,78,210);
+        background: radial-gradient(circle, rgba(52,78,210,1) 0%, rgba(39,209,97,1) 100%);
+        color: white;
+        border-radius: 8px;
+        text-align: center;
+        text-decoration: inherit;
     }
-    .button-this{
-        margin-right: 5%;
+    .btn-sec{
+        width: auto;
+        height: auto;
+        display: inline-block;
+        background: rgb(52,78,210);
+        background: radial-gradient(circle, rgba(52,78,210,1) 0%, rgba(39,209,97,1) 100%);
+        color: white;
+        border-radius: 8px;
+        text-align: center;
+        text-decoration: inherit;
     }
+
+
+    .other-things-template{
+        margin: auto;
+        margin-top: 5%;
+        max-width: 20vw;
+        height: 5vw;
+        background: rgb(2,0,36);
+        background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+        border-radius: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .see-all-btn{
+        width: auto;
+        height: auto;
+        display: inline-block;
+        background: rgb(52,78,210);
+        background: radial-gradient(circle, rgba(52,78,210,1) 0%, rgba(39,209,97,1) 100%);
+        color: white;
+        border-radius: 8px;
+        text-align: center;
+        text-decoration: inherit;
+    }
+
 </style>
