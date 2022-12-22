@@ -1,6 +1,33 @@
 <script setup>
     import { supabase } from '../supabase.js';
-    import {ref, onMounted} from 'vue'
+    import {ref, onMounted, computed} from 'vue'
+    import firstGroupStudent from './FirstGroupTable'
+    import secondGroupStudent from './SecondGroupTable'
+    import DashBoard from './DashBoard'
+    import StudentsPicker from './PickStudents';
+    import StudentsTable from './StudentsTable'
+
+
+    const routes = {
+    "/": DashBoard,
+    "/changeStudentFirstGroup": firstGroupStudent,
+    "/changeStudentSecondGroup": secondGroupStudent,
+    "/studentPick": StudentsPicker,
+    "/studentsTable": StudentsTable
+
+  }
+
+
+  const currentPath = ref(window.location.hash)
+
+  window.addEventListener('hashchange', () => {
+    currentPath.value = window.location.hash
+  })
+
+  const currentView = computed(() => {
+    return routes[currentPath.value.slice(1) || '/'] || NotFound
+  })
+
 
 
     const students = ref([])
@@ -37,25 +64,39 @@
             <h2>{{(firstActiveStudent.firstname + " " + firstActiveStudent.lastname)}}</h2>
 
 
-            <a href="/changeStudentFirstGroup"  class="btn-fir"><h4>Change student</h4></a>            
+            <a href="#/changeStudentFirstGroup"  class="btn-fir"><h4>Change student</h4></a>            
         </div>
 
         <div class="second-student">
             <h2>{{(secondActiveStudent.firstname + " " + secondActiveStudent.lastname)}}</h2>
 
 
-            <a href="/changeStudentSecondGroup"  class="btn-sec"><h4>Change student</h4></a>
+            <a href="#/changeStudentSecondGroup"  class="btn-sec"><h4>Change student</h4></a>
         </div>
 
     </div>
     <div class="other-things-template">
-        <a href="/studentsTable" class="see-all-btn"><h4>See All Students</h4></a>
+        <a href="#/studentsTable" class="see-all-btn"><h4>See All Students</h4></a>
     </div>
+
+
+    <component :is="currentView"/>
 
 </template>
 
 
-<style scoped>
+<style>
+
+    body, html{
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        min-height: 100%;
+    }
+    body{
+        background-color: #707070;
+    }
+
     .whole-students-template{
         margin: auto;
         margin-top: 10%;
@@ -63,8 +104,7 @@
         max-width: 100vw;
         height: 20vw;
         color: white;
-        background: rgb(2,0,36);
-        background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+        background-color: #101A35;
         border-radius: 64px;
         display: flex;
         justify-content: center;
@@ -88,8 +128,7 @@
         width: auto;
         height: auto;
         display: inline-block;
-        background: rgb(52,78,210);
-        background: radial-gradient(circle, rgba(52,78,210,1) 0%, rgba(39,209,97,1) 100%);
+        background-color: #585858;
         color: white;
         border-radius: 8px;
         text-align: center;
@@ -99,8 +138,7 @@
         width: auto;
         height: auto;
         display: inline-block;
-        background: rgb(52,78,210);
-        background: radial-gradient(circle, rgba(52,78,210,1) 0%, rgba(39,209,97,1) 100%);
+        background-color: #585858;
         color: white;
         border-radius: 8px;
         text-align: center;
@@ -112,9 +150,8 @@
         margin: auto;
         margin-top: 5%;
         max-width: 20vw;
-        height: 5vw;
-        background: rgb(2,0,36);
-        background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+        height: 8vw;
+        background-color: #101A35;
         border-radius: 32px;
         display: flex;
         justify-content: center;
@@ -125,8 +162,7 @@
         width: auto;
         height: auto;
         display: inline-block;
-        background: rgb(52,78,210);
-        background: radial-gradient(circle, rgba(52,78,210,1) 0%, rgba(39,209,97,1) 100%);
+        background-color: #585858;
         color: white;
         border-radius: 8px;
         text-align: center;
