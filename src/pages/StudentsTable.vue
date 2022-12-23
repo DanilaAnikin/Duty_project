@@ -1,23 +1,32 @@
 <script setup>
-import {supabase} from '@/supabase';
-import {ref, onMounted} from 'vue';
+  import {supabase} from '@/supabase';
+  import {ref, onMounted} from 'vue';
 
-const students = ref([]);
+  const students = ref([]);
 
-const loadStudents = async () => {
-    students.value = (await supabase.from('Students').select()).data;
-}
+  const loadStudents = async () => {
+      students.value = (await supabase.from('Students').select().order('id', {adcending: true})).data;
+  }
 
-const getStudentName = student => `${student.firstname} ${student.lastname}`;
+  const getStudentName = student => `${student.firstname} ${student.lastname}`;
 
-onMounted(loadStudents);
+  const changeActive = async(student) => {
+    const {data} = await supabase.from('Students').update({active: !student.active}).eq('id', student.id).select()
+    student.active = data[0].active
+    console.log(data)
+  }
+
+
+
+
+  onMounted(loadStudents);
 
 
 </script>
 
 <template>
     <div class="students-page">
-        <h2>Students</h2>
+        <h2 style="color: #D0D0D0;">Students</h2>
       <div class="students-table-header">
         <div class="w-name">Name</div>
         <div class="center w-status">Status</div>
@@ -26,16 +35,21 @@ onMounted(loadStudents);
         <div class="students-table">
             <div v-for="student in students" :key="student.id" class="student">
                 <div class="w-name">{{getStudentName(student)}}</div>
-                <div class="w-status"><div  class="student-status" :class="{'active': student.active, 'not-active': !student.active}"/></div>
+                <div class="w-status"><div class="student-status" :class="{'active': student.active, 'not-active': !student.active}" @click="changeActive(student)"/></div>
                 <div class="center w-group">{{student.group}}</div>
             </div>
         </div>
+        <a href="#/add-student" class="add-student"><h2>Add Student</h2></a>
     </div>
 </template>
 
 <style scoped lang="scss">
 .students-page {
-  width: 100vw;
+  border-radius: 16px;
+  margin: auto;
+  margin-top: 10%;
+  background-color: #505050;
+  width: 20%;
   display: flex;
   flex-direction:column;
   justify-content: center;
@@ -43,6 +57,7 @@ onMounted(loadStudents);
 
   h2 {
     width: 400px;
+    display: inline-block;
   }
  }
 
@@ -50,6 +65,7 @@ onMounted(loadStudents);
   min-width: 400px;
   display: flex;
   flex-direction: row;
+  color: #F0F0F0;
 }
 
 .center {
@@ -73,7 +89,7 @@ onMounted(loadStudents);
   margin-top: 25px;
 
   .student {
-    width: 400px;
+    width: 15vw;
     max-width: 99vw;
     background-color: #dddddd;
     display: flex;
@@ -102,6 +118,18 @@ onMounted(loadStudents);
       margin-left: 25px;
     }
   }
+}
+
+.add-student{
+  width: auto;
+  height: auto;
+  display: inline-block;
+  color: #F0F0F0;
+  background-color: #707070;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 2vw;
+  margin-bottom: 2vw;
 }
 
 </style>

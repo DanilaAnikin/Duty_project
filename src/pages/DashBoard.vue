@@ -6,7 +6,6 @@
     let firstActiveStudent = ref([])
     let secondActiveStudent = ref([])
 
-
     onMounted(() => {
         getStudents()
     })
@@ -18,7 +17,6 @@
 
         firstActiveStudent.value = students.value.filter(student => student.active)[0]
         secondActiveStudent.value = students.value.filter(student => student.active)[1]
-
     }
 
 </script>
@@ -34,19 +32,19 @@
             <h2>{{(firstActiveStudent.firstname + " " + firstActiveStudent.lastname)}}</h2>
 
 
-            <a href="#/changeStudentFirstGroup"  class="btn-fir"><h4>Change student</h4></a>            
+            <a href="#/students-table"  class="btn-fir"><h4>Change student</h4></a>            
         </div>
 
         <div class="second-student">
             <h2>{{(secondActiveStudent.firstname + " " + secondActiveStudent.lastname)}}</h2>
 
 
-            <a href="#/changeStudentSecondGroup"  class="btn-sec"><h4>Change student</h4></a>
+            <a href="#/students-table"  class="btn-sec"><h4>Change student</h4></a>
         </div>
 
     </div>
     <div class="other-things-template">
-        <a href="#/studentsTable" class="see-all-btn"><h4>See All Students</h4></a>
+        <a href="#/students-table" class="see-all-btn"><h4>See All Students</h4></a>
     </div>
 </template>
 
@@ -70,7 +68,7 @@
         max-width: 100vw;
         height: 20vw;
         color: white;
-        background-color: #101A35;
+        background-color: #585858;
         border-radius: 64px;
         display: flex;
         justify-content: center;
@@ -94,7 +92,7 @@
         width: auto;
         height: auto;
         display: inline-block;
-        background-color: #585858;
+        background-color: #404040;
         color: white;
         border-radius: 8px;
         text-align: center;
@@ -104,7 +102,7 @@
         width: auto;
         height: auto;
         display: inline-block;
-        background-color: #585858;
+        background-color: #404040;
         color: white;
         border-radius: 8px;
         text-align: center;
@@ -117,7 +115,7 @@
         margin-top: 5%;
         max-width: 20vw;
         height: 8vw;
-        background-color: #101A35;
+        background-color: #585858;
         border-radius: 32px;
         display: flex;
         justify-content: center;
@@ -128,7 +126,7 @@
         width: auto;
         height: auto;
         display: inline-block;
-        background-color: #585858;
+        background-color: #404040;
         color: white;
         border-radius: 8px;
         text-align: center;

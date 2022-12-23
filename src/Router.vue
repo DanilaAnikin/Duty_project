@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue';
 import Dashboard from '@/pages/DashBoard.vue';
 import StudentsTable from "@/pages/StudentsTable.vue";
+import AddStudent from "@/pages/AddStudent.vue"
 
 const routes = {
     "/": {
@@ -11,6 +12,10 @@ const routes = {
     "/students-table": {
         component: StudentsTable,
         title: "Students table"
+    },
+    "/add-student": {
+        component: AddStudent,
+        title: "Add Student"
     }
 }
 const currentPath = ref(window.location.hash);
@@ -48,7 +53,7 @@ $menuHeight: 50px;
     right: 0;
     top: 0;
     height: $menuHeight;
-    background-color: #cccccc;
+    background-color: #505050;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -58,7 +63,7 @@ $menuHeight: 50px;
     a {
         margin: 0 15px;
         text-decoration: none;
-        color: #000000;
+        color: white;
         font-weight: 600;
         transition: color 100ms;
 
