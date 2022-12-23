@@ -1,6 +1,7 @@
 <script setup>
   import {supabase} from '@/supabase';
   import {ref, onMounted} from 'vue';
+  import Symbol from "../components/Symbol.vue"
 
   const students = ref([]);
 
@@ -13,6 +14,11 @@
   const changeActive = async(student) => {
     const {data} = await supabase.from('Students').update({active: !student.active}).eq('id', student.id).select()
     student.active = data[0].active
+  }
+
+  const deleteStudent = async(student) => {
+    const {data} = await supabase.from('Students').delete().eq('lastname', student.lastname)
+    student = data[0]
   }
 
 
@@ -36,6 +42,7 @@
                 <div class="w-name">{{getStudentName(student)}}</div>
                 <div class="w-status"><div class="student-status" :class="{'active': student.active, 'not-active': !student.active}" @click="changeActive(student)"/></div>
                 <div class="center w-group">{{student.group}}</div>
+                <button class="btn-symbol"><Symbol class="symbol" @click="deleteStudent(student)"/></button>
             </div>
         </div>
         <a href="#/add-student" class="add-student"><h2>Add Student</h2></a>
@@ -117,6 +124,11 @@
       margin-left: 25px;
     }
   }
+}
+.btn-symbol{
+  border: none;
+  background-color: #dddddd;
+  margin-left: 10%;
 }
 
 .add-student{

@@ -20,16 +20,11 @@ const active = ref([])
             alert("Please enter a correct form of BOOLEAN!!")  
             return
         }
-
-
-        const { data } = await supabase.from('Students').select();
-
-        students.value = data;
         
+
 
         const {thoseData} = await supabase.from("Students").upsert(
         {
-            "id": students.value.length+1, 
             "firstname": firstname.value,
             "lastname": lastname.value,
             "group": group.value,
@@ -37,7 +32,7 @@ const active = ref([])
             "lastFrom": null,
             "lastTo": null,
             "count": 0
-        }).select()
+        })
 
 
         firstname.value = []
