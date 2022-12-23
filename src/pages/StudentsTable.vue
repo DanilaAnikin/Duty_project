@@ -13,7 +13,6 @@
   const changeActive = async(student) => {
     const {data} = await supabase.from('Students').update({active: !student.active}).eq('id', student.id).select()
     student.active = data[0].active
-    console.log(data)
   }
 
 

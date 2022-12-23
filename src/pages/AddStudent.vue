@@ -1,66 +1,50 @@
 <script setup>
-import { booleanLiteral } from '@babel/types';
 import { supabase } from '@/supabase';
 import {ref} from 'vue'
 
 const students = ref([])
 
+const firstname = ref([])
+const lastname = ref([])
+const group = ref([])
+const active = ref([])
+
+
     const addStudent = async() => {
-        const firstname = document.getElementById("fname").value;
-        const lastname = document.getElementById("lname").value;
-        let group = 1;
-        let active = false;
-        let groupBol
-        let activeBol
 
-        const activeId = document.getElementById("active").value
-        const groupId = document.getElementById("group").value
-        if(groupId == "1" || groupId == "2"){
-            group = groupId
-            groupBol = true
-        } else{
+        if(group.value !== "1" && group.value !== "2"){
             alert("Please enter a correct group! (1 or 2)")
-            groupBol = false
+            return
+        }
+        if(active.value !== "true" && active.value !== "false"){
+            alert("Please enter a correct form of BOOLEAN!!")  
+            return
         }
 
-        if(activeId == "true" || activeId == "false"){
-            active = activeId
-            activeBol = true
-        } else{
-            alert("Please enter a correct form of BOOLEAN!!")
-            activeBol = false
-        }
-
-
-        console.log(firstname, lastname, group, active)
 
         const { data } = await supabase.from('Students').select();
 
         students.value = data;
         
 
-        if(groupBol && activeBol){
-            const {thoseData} = await supabase.from("Students").upsert(
-            {
-                "id": students.value.length+1, 
-                "firstname": firstname,
-                "lastname": lastname,
-                "group": group,
-                "active": active,
-                "lastFrom": null,
-                "lastTo": null,
-                "count": 0
-            }).select()
-        } else{
-            alert("You wrote smth wrong")
-        }
+        const {thoseData} = await supabase.from("Students").upsert(
+        {
+            "id": students.value.length+1, 
+            "firstname": firstname.value,
+            "lastname": lastname.value,
+            "group": group.value,
+            "active": active.value,
+            "lastFrom": null,
+            "lastTo": null,
+            "count": 0
+        }).select()
 
 
-
-        document.getElementById("fname").value = ""
-        document.getElementById("lname").value = ""
-        document.getElementById("group").value = ""
-        document.getElementById("active").value = ""
+        firstname.value = []
+        lastname.value = []
+        group.value = []
+        active.value = []
+        window.location.href = "#/students-table";
     }
 
 
@@ -73,19 +57,19 @@ const students = ref([])
         <div class="all-form">
             <div class="firstname">
                 <h3>First Name</h3>
-                <input type="text" id="fname" name="firstname" placeholder="Firstname..">
+                <input type="text" id="fname" name="firstname" v-model="firstname" placeholder="Firstname..">
             </div>
             <div class="lastname">
                 <h3>Last Name</h3>
-                <input type="text" id="lname" name="lastname" placeholder="Lastname..">
+                <input type="text" id="lname" name="lastname" v-model="lastname" placeholder="Lastname..">
             </div>
             <div class="group">
                 <h3>Group</h3>
-                <input type="text" id="group" name="group" placeholder="Group..">
+                <input type="text" id="group" name="group" v-model="group" placeholder="Group..">
             </div>
             <div class="active">
                 <h3>Active</h3>
-                <input type="text" id="active" name="active" placeholder="True/False..">
+                <input type="text" id="active" name="active" v-model="active" placeholder="True/False..">
             </div>
         </div>
     </div>
