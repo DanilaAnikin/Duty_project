@@ -19,13 +19,21 @@
         secondActiveStudent.value = students.value.filter(student => student.active)[1]
     }
 
-    const generateStudents = async() => {
+    const generateStudents = async(firstActiveStudent, secondActiveStudent) => {
         
-        const {data} = await supabase.from("Students").where({active: false}).orderBy('lastTo', 'asc').execute()
-        firstActiveStudent = data.find(student => student.group == 1)
-        secondActiveStudent = data.find(student => student.group == 2)
+        const {data} = await supabase.from("Students").select().eq('active', false).order('lastTo', {ascending: true}).select()
+        console.log(data)
+        console.log(data.filter(student => student.group == 1)[0].lastname)
 
+        const {newData} = await supabase.from('Students').update({active: false}).eq('id', firstActiveStudent.id)
+        const {newNewData} = await supabase.from('Students').update({active: false}).eq('id', secondActiveStudent.id)
+        console.log(firstActiveStudent, secondActiveStudent)
+        firstActiveStudent = data.filter(student => student.group == 1)[0]
+        secondActiveStudent = data.filter(student => student.group == 2)[0]
+        console.log(firstActiveStudent, secondActiveStudent)
 
+        const {changeData} = await supabase.from('Students').update({active: true}).eq('id', firstActiveStudent.id)
+        const {changeSecondData} = await supabase.from('Students').update({active: true}).eq('id', secondActiveStudent.id)
 
     }
 </script>
@@ -33,7 +41,7 @@
 <template>
     <div class="whole-students-template">
 
-        <button class="generate-students" @click="generateStudents()"><h3>GENERATE NEW STUDENTS</h3></button>
+        <button class="generate-students" @click="generateStudents(firstActiveStudent, secondActiveStudent)"><h3>GENERATE NEW STUDENTS</h3></button>
 
         <div class="text">
             <h1>This week are duty:</h1>
