@@ -17,7 +17,7 @@
   }
 
   const deleteStudent = async(student) => {
-    const {data} = await supabase.from('Students').delete().eq('lastname', student.lastname)
+    const {data} = await supabase.from('Students').delete().eq('id', student.id).select()
     student = data[0]
   }
 
@@ -141,6 +141,9 @@
   text-align: center;
   margin-top: 2vw;
   margin-bottom: 2vw;
+  &:hover {
+    color: #505050;
+  }
 }
 
 </style>

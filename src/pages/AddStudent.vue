@@ -29,8 +29,8 @@ const active = ref([])
             "lastname": lastname.value,
             "group": group.value,
             "active": active.value,
-            "lastFrom": null,
-            "lastTo": null,
+            "lastFrom": "2022_01_01",
+            "lastTo": "2022_01_08",
             "count": 0
         })
 

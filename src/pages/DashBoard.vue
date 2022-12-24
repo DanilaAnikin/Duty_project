@@ -19,10 +19,21 @@
         secondActiveStudent.value = students.value.filter(student => student.active)[1]
     }
 
+    const generateStudents = async() => {
+        
+        const {data} = await supabase.from("Students").where({active: false}).orderBy('lastTo', 'asc').execute()
+        firstActiveStudent = data.find(student => student.group == 1)
+        secondActiveStudent = data.find(student => student.group == 2)
+
+
+
+    }
 </script>
 
 <template>
     <div class="whole-students-template">
+
+        <button class="generate-students" @click="generateStudents()"><h3>GENERATE NEW STUDENTS</h3></button>
 
         <div class="text">
             <h1>This week are duty:</h1>
@@ -32,14 +43,14 @@
             <h2>{{(firstActiveStudent.firstname + " " + firstActiveStudent.lastname)}}</h2>
 
 
-            <a href="#/students-table"  class="btn-fir"><h4>Change student</h4></a>            
+            <a href="#/students-table"  class="btn-fir"><h4>Change Student</h4></a>            
         </div>
 
         <div class="second-student">
             <h2>{{(secondActiveStudent.firstname + " " + secondActiveStudent.lastname)}}</h2>
 
 
-            <a href="#/students-table"  class="btn-sec"><h4>Change student</h4></a>
+            <a href="#/students-table"  class="btn-sec"><h4>Change Student</h4></a>
         </div>
 
     </div>
@@ -49,7 +60,7 @@
 </template>
 
 
-<style>
+<style lang="scss">
 
     body, html{
         padding: 0;
@@ -67,8 +78,8 @@
         width: 60%;
         max-width: 100vw;
         height: 20vw;
-        color: white;
-        background-color: #585858;
+        color: #F0F0F0;
+        background-color: #404040;
         border-radius: 64px;
         display: flex;
         justify-content: center;
@@ -80,42 +91,59 @@
     }
     .first-student{
         display: inline-block;
+        margin-top: 5%;
         margin-left: 5%;
-        margin-top: 3%;
     }
     .second-student{
         display: inline-block;
-        margin-left: 5%;
-        margin-top: 3%;
+        margin-left: 10%;
+        margin-top: 5%;
     }
     .btn-fir{
         width: auto;
         height: auto;
         display: inline-block;
-        background-color: #404040;
-        color: white;
+        background-color: #585858;
+        color: #F0F0F0;
         border-radius: 8px;
         text-align: center;
         text-decoration: inherit;
+        &:hover {
+            color: #404040;
+        }
     }
     .btn-sec{
         width: auto;
         height: auto;
         display: inline-block;
-        background-color: #404040;
-        color: white;
+        background-color: #585858;
+        color: #F0F0F0;
         border-radius: 8px;
         text-align: center;
         text-decoration: inherit;
+        &:hover {
+            color: #404040;
+        }
     }
 
+    .generate-students{
+        margin-left: -5%;
+        margin-bottom: 20%;
+        display: inline-block;
+        border-radius: 16px;
+        color: #F0F0F0;
+        background-color: #585858;
+        &:hover {
+            color: #404040;
+        }
+    }
 
     .other-things-template{
         margin: auto;
         margin-top: 5%;
         max-width: 20vw;
         height: 8vw;
-        background-color: #585858;
+        background-color: #404040;
         border-radius: 32px;
         display: flex;
         justify-content: center;
@@ -126,11 +154,14 @@
         width: auto;
         height: auto;
         display: inline-block;
-        background-color: #404040;
-        color: white;
+        background-color: #585858;
+        color: #F0F0F0;
         border-radius: 8px;
         text-align: center;
         text-decoration: inherit;
+        &:hover {
+            color: #404040;
+        }
     }
 
 </style>
