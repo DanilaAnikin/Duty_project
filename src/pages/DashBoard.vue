@@ -22,15 +22,12 @@
     const generateStudents = async(firstActiveStudent, secondActiveStudent) => {
         
         const {data} = await supabase.from("Students").select().eq('active', false).order('lastTo', {ascending: true}).select()
-        console.log(data)
-        console.log(data.filter(student => student.group == 1)[0].lastname)
 
         const {newData} = await supabase.from('Students').update({active: false}).eq('id', firstActiveStudent.id)
         const {newNewData} = await supabase.from('Students').update({active: false}).eq('id', secondActiveStudent.id)
-        console.log(firstActiveStudent, secondActiveStudent)
+
         firstActiveStudent = data.filter(student => student.group == 1)[0]
         secondActiveStudent = data.filter(student => student.group == 2)[0]
-        console.log(firstActiveStudent, secondActiveStudent)
 
         const {changeData} = await supabase.from('Students').update({active: true}).eq('id', firstActiveStudent.id)
         const {changeSecondData} = await supabase.from('Students').update({active: true}).eq('id', secondActiveStudent.id)
