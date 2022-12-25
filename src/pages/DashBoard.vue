@@ -47,10 +47,8 @@
         const {DateData} = await supabase.from('Students').update({lastFrom: today}).eq('id', firstActiveStudent.id)
         const {SecondDateData} = await supabase.from('Students').update({lastFrom: today}).eq('id', secondActiveStudent.id)
 
-        const {CountData} = await supabase.from('Students').select().eq('id', firstActiveStudent.id).select()
-        const {theCountData} = await supabase.from('Students').select().eq('id', secondActiveStudent.id).select()
-        const countOne = CountData[0].count
-        const countTwo = theCountData[0].count
+        const countOne = students.value.find(student => student.id == firstActiveStudent.id).count
+        const countTwo = students.value.find(student => student.id == secondActiveStudent.id).count
         console.log(countOne, countTwo)
 
         const {countData} = await supabase.from('Students').update({count: countOne+1}).eq('id', firstActiveStudent.id)
