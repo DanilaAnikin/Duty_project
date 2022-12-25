@@ -31,17 +31,18 @@
 
 <template>
     <div class="students-page">
-        <h2 style="color: #D0D0D0;">Students</h2>
+        <h2 class="text-students" style="color: #D0D0D0;">Students</h2>
       <div class="students-table-header">
         <div class="w-name">Name</div>
         <div class="center w-status">Status</div>
         <div class="center w-group">Group</div>
+        <div class="center w-delete">Delete</div>
       </div>
         <div class="students-table">
             <div v-for="student in students" :key="student.id" class="student">
-                <div class="w-name">{{getStudentName(student)}}</div>
-                <div class="w-status"><div class="student-status" :class="{'active': student.active, 'not-active': !student.active}" @click="changeActive(student)"/></div>
-                <div class="center w-group">{{student.group}}</div>
+                <div class="student-name">{{getStudentName(student)}}</div>
+                <div class="student-status"><div class="student-status" :class="{'active': student.active, 'not-active': !student.active}" @click="changeActive(student)"/></div>
+                <div class="center student-group">{{student.group}}</div>
                 <button class="btn-symbol"><Symbol class="symbol" @click="deleteStudent(student)"/></button>
             </div>
         </div>
@@ -66,6 +67,9 @@
     display: inline-block;
   }
  }
+ .text-students{
+  margin-left: 20%;
+ }
 
 .students-table-header {
   min-width: 400px;
@@ -80,19 +84,34 @@
 }
 
 .w-name {
+  margin-left: 15%;
   width: 35%;
+}
+.student-name{
+  width: 25%;
+}
+.student-status{
+  width: 20%;
+}
+.student-group{
+  width: 20%;
 }
 
 .w-status {
+  margin-left: -20%;
   width: 20%;
 }
 
 .w-group {
+  margin-left: 3%;
+  width: 20%;
+}
+.w-delete{
   width: 20%;
 }
 
 .students-table {
-  margin-top: 25px;
+  margin-top: 5%;
 
   .student {
     width: 15vw;

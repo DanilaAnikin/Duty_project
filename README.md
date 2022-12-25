@@ -1,4 +1,4 @@
-# sluzba-ve-tride
+# duty-project
 
 ## Project setup
 ```

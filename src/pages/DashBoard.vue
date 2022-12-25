@@ -32,26 +32,16 @@
         
         const {data} = await supabase.from("Students").select().eq('active', false).order('lastTo', {ascending: true}).select()
 
-        const {updatingToNotActiveFirst} = await supabase.from('Students').update({active: false}).eq('id', firstActiveStudent.id)
-        const {updatingToNotActiveSecond} = await supabase.from('Students').update({active: false}).eq('id', secondActiveStudent.id)
-
-        const {updatingDateFirst} = await supabase.from('Students').update({lastTo: today}).eq('id', firstActiveStudent.id)
-        const {udatingDateSecond} = await supabase.from('Students').update({lastTo: today}).eq('id', secondActiveStudent.id)
+        const {updatingToNotActiveFirst} = await supabase.from('Students').update({active: false}, {lastTo: today}).eq('active', true)
 
         firstActiveStudent = data.filter(student => student.group == 1)[0]
         secondActiveStudent = data.filter(student => student.group == 2)[0]
 
-        const {updatingToActiveFirst} = await supabase.from('Students').update({active: true}).eq('id', firstActiveStudent.id)
-        const {updatingToActiveSecond} = await supabase.from('Students').update({active: true}).eq('id', secondActiveStudent.id)
-
-        const {updatingLastFromFirst} = await supabase.from('Students').update({lastFrom: today}).eq('id', firstActiveStudent.id)
-        const {updatingLastFromSecond} = await supabase.from('Students').update({lastFrom: today}).eq('id', secondActiveStudent.id)
-
         const countOne = students.value.find(student => student.id == firstActiveStudent.id).count
         const countTwo = students.value.find(student => student.id == secondActiveStudent.id).count
 
-        const {updatingCountFirst} = await supabase.from('Students').update({count: countOne+1}).eq('id', firstActiveStudent.id)
-        const {updatingCountSecond} = await supabase.from('Students').update({count: countTwo+1}).eq('id', secondActiveStudent.id)
+        const {updatingToActiveFirst} = await supabase.from('Students').update({active: true}, {lastFrom: today}, {count: countOne+1}).eq('id', firstActiveStudent.id)
+        const {updatingToActiveSecond} = await supabase.from('Students').update({active: true}, {lastFrom: today}, {count: countTwo+1}).eq('id', secondActiveStudent.id)
     }
 </script>
 
@@ -101,7 +91,7 @@
     .whole-students-template{
         margin: auto;
         margin-top: 10%;
-        width: 60%;
+        width: 80%;
         max-width: 100vw;
         height: 20vw;
         color: #F0F0F0;
