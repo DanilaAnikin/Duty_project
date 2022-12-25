@@ -41,7 +41,7 @@
         <div class="students-table">
             <div v-for="student in students" :key="student.id" class="student">
                 <div class="student-name">{{getStudentName(student)}}</div>
-                <div class="student-status"><div class="student-status" :class="{'active': student.active, 'not-active': !student.active}" @click="changeActive(student)"/></div>
+                <div class="student-status-one"><div class="student-status" :class="{'active': student.active, 'not-active': !student.active}" @click="changeActive(student)"/></div>
                 <div class="center student-group">{{student.group}}</div>
                 <button class="btn-symbol"><Symbol class="symbol" @click="deleteStudent(student)"/></button>
             </div>
@@ -88,6 +88,7 @@
   width: 35%;
 }
 .student-name{
+  padding-right: 10%;
   width: 25%;
 }
 .student-status{
@@ -103,10 +104,11 @@
 }
 
 .w-group {
-  margin-left: 3%;
+  margin-left: -3%;
   width: 20%;
 }
 .w-delete{
+  margin-left: -3%;
   width: 20%;
 }
 
@@ -116,7 +118,9 @@
   .student {
     width: 15vw;
     max-width: 99vw;
-    background-color: #dddddd;
+    background-color: #505050;
+    color: #dddddd;
+    text-decoration: solid;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -146,7 +150,7 @@
 }
 .btn-symbol{
   border: none;
-  background-color: #dddddd;
+  background-color: #505050;
   margin-left: 10%;
 }
 
@@ -164,5 +168,36 @@
     color: #505050;
   }
 }
+
+
+@media only screen and (max-width: 600px){
+  .students-page{
+    margin-top: 30%;
+    width: 90%;
+  }
+  .text-students{
+    margin-left: 30%;
+  }
+  .students-table{
+    width: 100%;
+  }
+  .student-status-one{
+    margin-left: 100%;
+    padding-right: 100%;
+  }
+  .w-group{
+    margin-left: 3%;
+  }
+  .w-delete{
+    margin-left: -1%;
+  }
+  .student-name{
+    padding-right: 60%;
+  }
+  .student-group{
+    padding-right: 100%;
+  }
+}
+
 
 </style>

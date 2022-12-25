@@ -77,4 +77,15 @@ $menuHeight: 50px;
   margin-top: $menuHeight;
 }
 
+@media only screen and (max-width: 600px){
+    .menu{
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: $menuHeight;
+        background-color: #505050;
+    }
+}
+
 </style>
