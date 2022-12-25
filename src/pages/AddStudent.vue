@@ -64,7 +64,7 @@ const active = ref([])
             </div>
             <div class="active">
                 <h3>Active</h3>
-                <input type="text" id="active" name="active" v-model="active" placeholder="True/False..">
+                <input type="text" id="active" name="active" v-model="active" placeholder="true/false..">
             </div>
         </div>
     </div>
