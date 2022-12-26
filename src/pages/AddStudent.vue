@@ -40,7 +40,7 @@ const active = ref([])
         group.value = []
         active.value = []
         window.location.href = "#/students-table";
-    }
+    }  
 
 
 </script>
