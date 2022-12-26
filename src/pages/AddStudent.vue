@@ -64,7 +64,7 @@ const active = ref([])
             </div>
             <div class="active">
                 <h3>Active</h3>
-                <input type="text" id="active" name="active" v-model="active" placeholder="true/false..">
+                <input class="input-active" type="text" id="active" name="active" v-model="active" placeholder="true/false..">
             </div>
         </div>
     </div>
@@ -81,6 +81,7 @@ const active = ref([])
         margin-top: 10%;
         color: #F0F0F0;
         background-color: #585858;
+        padding-bottom: 5%;
     }
     .header{
         display: inline-block;
@@ -94,11 +95,12 @@ const active = ref([])
         color: #F0F0F0;
         background-color: #228B22;
         border-radius: 8px;
-        height: 8%;
+        height: 15%;
         width: 30%;
         display: inline-block;
         text-align: center;
         margin-left: 15%;
+        margin-top: 5%;
     }
     .all-form{
         border-radius: 16px;
@@ -106,6 +108,7 @@ const active = ref([])
         width: 80%;
         height: 75%;
         margin-left: 10%;
+        padding-bottom: 10%;
     }
     h3{
         margin-left: 10%;
@@ -129,5 +132,22 @@ const active = ref([])
     }
     .active{
         margin-top: 10%;
+    }
+
+    @media only screen and (max-width: 600px){
+        .change-student-whole{
+            margin-top: 30%;
+            width: 80%;
+            height: 100%;
+            padding-bottom: 20%;
+        }
+        .all-form{
+            padding-bottom: 20%;
+        }
+        .btn-add{
+            margin-top: 10%;
+            width: 35%;
+            height: 10%;
+        }
     }
 </style>
