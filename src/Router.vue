@@ -3,6 +3,7 @@ import { ref, computed } from 'vue';
 import Dashboard from '@/pages/DashBoard.vue';
 import StudentsTable from "@/pages/StudentsTable.vue";
 import AddStudent from "@/pages/AddStudent.vue"
+import Login from "@/pages/LoginPlease.vue"
 
 const routes = {
     "/": {
@@ -16,6 +17,10 @@ const routes = {
     "/add-student": {
         component: AddStudent,
         title: "Add Student"
+    },
+    "/login": {
+        component: Login,
+        title: "Login"
     }
 }
 const currentPath = ref(window.location.hash);
