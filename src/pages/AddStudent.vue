@@ -9,6 +9,8 @@ const lastname = ref([])
 const group = ref([])
 const active = ref([])
 
+const props = defineProps(['admin'])
+
 
     const addStudent = async() => {
 

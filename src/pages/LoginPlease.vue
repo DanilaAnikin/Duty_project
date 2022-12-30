@@ -1,5 +1,29 @@
 
-<script>
+<script setup>
+import { supabase } from '@/supabase';
+import { onMounted, ref } from 'vue';
+
+const username = ref([]);
+const password = ref([]);
+const admin = ref(false)
+const user = ref([])
+
+const props = defineProps(['admin'])
+const emit = defineEmits(['set-admin'])
+
+
+const checkAll = async() => {
+    const {data} = await supabase.from("Admins").select().eq('user', username.value).eq('password', password.value).select();
+    user.value = data
+
+    if(user.value == null || user.value.length == 0){
+        emit('set-admin', false)
+    } else{
+        emit('set-admin', true)
+    }
+
+    window.location.href="#"
+}
 
 </script>
 
@@ -12,17 +36,17 @@
         <form class="loginForm">
             <div class="input-group">
                 <label for="username" class="label">Username</label>
-                <input type="text" id="username" class="input">
+                <input type="text" name="username" v-model="username" id="username" class="input">
                 <span class="error-message"></span>
             </div>
             <br>
             <div class="input-group">
                 <label for="password" class="label">Password</label>
-                <input type="password" id="password" class="input">
+                <input type="password" name="password" v-model="password" id="password" class="input">
                 <span class="error-message"></span>
             </div>
             <br>
-            <button class="button" type="submit">Login</button>
+            <button class="button" @click="checkAll()">Login</button>
         </form>
     </div>
 </template>
@@ -31,8 +55,6 @@
 
     $primary: rgb(0, 132, 255);
     $error: red;
-
-    @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 
     * {
         box-sizing: border-box;

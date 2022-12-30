@@ -6,6 +6,7 @@
     let firstActiveStudent = ref([])
     let secondActiveStudent = ref([])
 
+    const props = defineProps(['admin'])
 
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
@@ -48,7 +49,7 @@
 <template>
     <div class="whole-students-template">
 
-        <button class="generate-students" @click="generateStudents(firstActiveStudent, secondActiveStudent)"><h3>GENERATE NEW STUDENTS</h3></button>
+        <button v-if="admin" class="generate-students" @click="generateStudents(firstActiveStudent, secondActiveStudent)"><h3>GENERATE NEW STUDENTS</h3></button>
 
         <div class="text">
             <h1>This week are duty:</h1>

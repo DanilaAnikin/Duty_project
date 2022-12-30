@@ -5,6 +5,9 @@ import StudentsTable from "@/pages/StudentsTable.vue";
 import AddStudent from "@/pages/AddStudent.vue"
 import Login from "@/pages/LoginPlease.vue"
 
+
+const admin = ref(false)
+
 const routes = {
     "/": {
         component: Dashboard,
@@ -21,8 +24,10 @@ const routes = {
     "/login": {
         component: Login,
         title: "Login"
-    }
 }
+}
+
+
 const currentPath = ref(window.location.hash);
 
 window.addEventListener('hashchange', () => {
@@ -44,7 +49,7 @@ const currentView = computed(() => {
         </div>
     </div>
     <div class="content">
-        <component :is="currentView"/>
+        <component :is="currentView" :admin="admin" @set-admin="admin = $event"/>
     </div>
 </template>
 

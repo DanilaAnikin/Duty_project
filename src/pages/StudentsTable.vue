@@ -5,6 +5,9 @@
 
   const students = ref([]);
 
+  const props = defineProps(['admin'])
+
+
   const loadStudents = async () => {
       students.value = (await supabase.from('Students').select().order('id', {adcending: true})).data;
   }
@@ -12,13 +15,17 @@
   const getStudentName = student => `${student.firstname} ${student.lastname}`;
 
   const changeActive = async(student) => {
-    const {data} = await supabase.from('Students').update({active: !student.active}).eq('id', student.id).select()
-    student.active = data[0].active
+    if(props.admin){
+      const {data} = await supabase.from('Students').update({active: !student.active}).eq('id', student.id).select()
+      student.active = data[0].active
+    } else{}
   }
 
   const deleteStudent = async(student) => {
-    const {data} = await supabase.from('Students').delete().eq('id', student.id).select()
-    student = data[0]
+    if(props.admin){
+      const {data} = await supabase.from('Students').delete().eq('id', student.id).select()
+      student = data[0]
+    } else{}
   }
 
 
