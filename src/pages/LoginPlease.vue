@@ -60,7 +60,6 @@ const logOut = () => {
 </template>
 
 <style scoped lang="scss">
-
     $primary: rgb(0, 132, 255);
     $error: red;
 

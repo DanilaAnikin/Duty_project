@@ -36,16 +36,16 @@
         <h2 class="text-students" style="color: #D0D0D0;">Students</h2>
       <div class="students-table-header">
         <div class="w-name">Name</div>
-        <div class="center w-status">Status</div>
+        <div class="center w-status">Status</div> 
         <div class="center w-group">Group</div>
-        <div class="center w-delete">Delete</div>
+        <div v-if="props.admin" class="center w-delete">Delete</div>
       </div>
         <div class="students-table">
             <div v-for="student in students" :key="student.id" class="student">
-                <div class="student-name">{{getStudentName(student)}}</div>
+                <div class="student-name" :class="{'nonadminname': !admin}">{{getStudentName(student)}}</div>
                 <div class="student-status-one"><div class="student-status" :class="{'active': student.active, 'not-active': !student.active}" @click="changeActive(student)"/></div>
                 <div class="center student-group">{{student.group}}</div>
-                <button class="btn-symbol"><Symbol class="symbol" @click="deleteStudent(student)"/></button>
+                <button v-if="props.admin" class="btn-symbol"><Symbol class="symbol" @click="deleteStudent(student)"/></button>
             </div>
         </div>
         <a href="#/add-student" class="add-student"><h2>Add Student</h2></a>
@@ -53,12 +53,14 @@
 </template>
 
 <style scoped lang="scss">
+
+
 .students-page {
   border-radius: 16px;
   margin: auto;
   margin-top: 10%;
   background-color: #505050;
-  width: 20%;
+  width: 40%;
   display: flex;
   flex-direction:column;
   justify-content: center;
@@ -70,11 +72,12 @@
   }
  }
  .text-students{
-  margin-left: 20%;
+  margin-left: -25%;
  }
 
 .students-table-header {
-  min-width: 400px;
+  justify-content: center;
+  width: 100%;
   display: flex;
   flex-direction: row;
   color: #F0F0F0;
@@ -86,19 +89,32 @@
 }
 
 .w-name {
-  margin-left: 15%;
   width: 35%;
 }
 .student-name{
-  padding-right: 10%;
+  margin-left: -14%;
+  padding-right: 7%;
   width: 25%;
+
+    &.nonadminname{
+      margin-left: 2%;
+    }
 }
 .student-status{
+  margin-left: 8%;
   width: 20%;
 }
 .student-group{
+  margin-left: 9%;
+  padding-right: 7%;
   width: 20%;
 }
+.btn-symbol{
+  border: none;
+  background-color: #505050;
+  padding: 0;
+}
+
 
 .w-status {
   margin-left: -20%;
@@ -115,20 +131,19 @@
 }
 
 .students-table {
+  width: 100%;
   margin-top: 5%;
 
   .student {
-    width: 15vw;
-    max-width: 99vw;
     background-color: #505050;
     color: #dddddd;
-    text-decoration: solid;
     display: flex;
     flex-direction: row;
     align-items: center;
     border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 20px;
+    padding: 6%;
+    margin-bottom: 10%;
+    justify-content: center;
 
     .student-status {
       height: 12px;
@@ -144,16 +159,7 @@
         background-color: #ab0000;
       }
     }
-
-    .student-group {
-      margin-left: 25px;
-    }
   }
-}
-.btn-symbol{
-  border: none;
-  background-color: #505050;
-  margin-left: 10%;
 }
 
 .add-student{
