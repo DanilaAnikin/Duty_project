@@ -49,7 +49,7 @@
 <template>
     <div class="whole-students-template">
 
-        <button v-if="admin" class="generate-students" @click="generateStudents(firstActiveStudent, secondActiveStudent)"><h3>GENERATE NEW STUDENTS</h3></button>
+        <button v-if="props.admin" class="generate-students" @click="generateStudents(firstActiveStudent, secondActiveStudent)"><h3>GENERATE NEW STUDENTS</h3></button>
 
         <div class="text">
             <h1>This week are duty:</h1>

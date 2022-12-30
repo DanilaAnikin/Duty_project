@@ -1,9 +1,10 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import Dashboard from '@/pages/DashBoard.vue';
 import StudentsTable from "@/pages/StudentsTable.vue";
 import AddStudent from "@/pages/AddStudent.vue"
 import Login from "@/pages/LoginPlease.vue"
+import Cookies from 'js-cookie'
 
 
 const admin = ref(false)
@@ -24,9 +25,10 @@ const routes = {
     "/login": {
         component: Login,
         title: "Login"
-}
+    }
 }
 
+onMounted(() => {admin.value = Cookies.get("logged") === "true"})
 
 const currentPath = ref(window.location.hash);
 

@@ -2,6 +2,8 @@
 <script setup>
 import { supabase } from '@/supabase';
 import { onMounted, ref } from 'vue';
+import Cookies from 'js-cookie'
+
 
 const username = ref([]);
 const password = ref([]);
@@ -18,10 +20,11 @@ const checkAll = async() => {
 
     if(user.value == null || user.value.length == 0){
         emit('set-admin', false)
+        Cookies.set("logged", "false")
     } else{
+        Cookies.set("logged", "true")
         emit('set-admin', true)
     }
-
     window.location.href="#"
 }
 
@@ -33,21 +36,19 @@ const checkAll = async() => {
     <div class="container">
         <h2 class="text-center">Login</h2>
         <br>
-        <form class="loginForm">
-            <div class="input-group">
-                <label for="username" class="label">Username</label>
-                <input type="text" name="username" v-model="username" id="username" class="input">
-                <span class="error-message"></span>
-            </div>
-            <br>
-            <div class="input-group">
-                <label for="password" class="label">Password</label>
-                <input type="password" name="password" v-model="password" id="password" class="input">
-                <span class="error-message"></span>
-            </div>
-            <br>
-            <button class="button" @click="checkAll()">Login</button>
-        </form>
+        <div class="input-group">
+            <label for="username" class="label">Username</label>
+            <input type="text" name="username" v-model="username" id="username" class="input">
+            <span class="error-message"></span>
+        </div>
+        <br>
+        <div class="input-group">
+            <label for="password" class="label">Password</label>
+            <input type="password" name="password" v-model="password" id="password" class="input">
+            <span class="error-message"></span>
+        </div>
+        <br>
+        <button class="button" @click="checkAll()">Login</button>
     </div>
 </template>
 
