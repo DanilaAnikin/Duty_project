@@ -12,21 +12,29 @@ const admin = ref(false)
 const routes = {
     "/": {
         component: Dashboard,
-        title: "Dashboard"
+        title: "Dashboard",
+        protected: false
     },
     "/students-table": {
         component: StudentsTable,
-        title: "Students table"
+        title: "Students table",
+        protected: false
     },
     "/add-student": {
         component: AddStudent,
-        title: "Add Student"
+        title: "Add Student",
+        protected: true
     },
     "/login": {
         component: Login,
-        title: "Login"
+        title: "Login / Logout",
+        protected: false
     }
 }
+
+const currentProtected = computed(() => {
+    return routes[currentPath.value.slice(1) || '/'].protected || false;
+})
 
 onMounted(() => {admin.value = Cookies.get("logged") === "true"})
 
@@ -51,7 +59,8 @@ const currentView = computed(() => {
         </div>
     </div>
     <div class="content">
-        <component :is="currentView" :admin="admin" @set-admin="admin = $event"/>
+        <component v-if="admin || !currentProtected" :is="currentView" :admin="admin" @set-admin="admin = $event"/>
+        <div v-else><h1 class="sorka">Sorry, but only admins can see this page.</h1></div>
     </div>
 </template>
 
@@ -59,6 +68,11 @@ const currentView = computed(() => {
 
 $menuHeight: 50px;
 
+.sorka{
+    margin-top: 20%;
+    text-align: center;
+    color: #800000;
+}
 .menu {
     position: fixed;
     left: 0;

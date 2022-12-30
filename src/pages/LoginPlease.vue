@@ -28,12 +28,18 @@ const checkAll = async() => {
     window.location.href="#"
 }
 
+const logOut = () => {
+    emit('set-admin', false)
+    Cookies.set("logged", "false")
+}
+
+
 </script>
 
 
 
 <template>
-    <div class="container">
+    <div v-if="props.admin == false" class="container">
         <h2 class="text-center">Login</h2>
         <br>
         <div class="input-group">
@@ -50,6 +56,7 @@ const checkAll = async() => {
         <br>
         <button class="button" @click="checkAll()">Login</button>
     </div>
+    <button v-else @click="logOut()" class="logout-btn"><h2>Log Out</h2></button>
 </template>
 
 <style scoped lang="scss">
@@ -75,6 +82,19 @@ const checkAll = async() => {
     h6 {
         padding: 0;
         margin: 0;
+    }
+
+    .logout-btn{
+        color: #F0F0F0;
+        background-color: #800000;
+        border-radius: 16px;
+        height: 8vh;
+        width: 20%;
+        margin-left: 40%;
+        margin-top: 15%;
+        display: inline-block;
+        text-align: center;
+        border: none;
     }
 
     .container {
@@ -142,6 +162,19 @@ const checkAll = async() => {
         font-size: 1rem;
         &:hover {
             filter: brightness(110%);
+        }
+    }
+
+    @media only screen and (max-width: 600px){
+        .container {
+            margin-top: 30vh;
+        }
+        .logout-btn{
+            margin: 0;
+            margin-left: 17%;
+            margin-top: 50%;
+            width: 30vh;
+            height: 10vh;
         }
     }
 

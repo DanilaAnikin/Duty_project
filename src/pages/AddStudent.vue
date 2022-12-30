@@ -13,34 +13,35 @@ const props = defineProps(['admin'])
 
 
     const addStudent = async() => {
+        if(props.admin){
+            if(group.value !== "1" && group.value !== "2"){
+                alert("Please enter a correct group! (1 or 2)")
+                return
+            }
+            if(active.value !== "true" && active.value !== "false"){
+                alert("Please enter a correct form of BOOLEAN!!")  
+                return
+            }
+            
+            const {thoseData} = await supabase.from("Students").upsert({
+                "firstname": firstname.value,
+                "lastname": lastname.value,
+                "group": group.value,
+                "active": active.value,
+                "lastFrom": "2022_01_01",
+                "lastTo": "2022_01_08",
+                "count": 0
+            })
 
-        if(group.value !== "1" && group.value !== "2"){
-            alert("Please enter a correct group! (1 or 2)")
-            return
-        }
-        if(active.value !== "true" && active.value !== "false"){
-            alert("Please enter a correct form of BOOLEAN!!")  
-            return
+
+            firstname.value = []
+            lastname.value = []
+            group.value = []
+            active.value = []
+        } else{
+            alert("Sorry, but only admins can add a new student.")
         }
         
-
-
-        const {thoseData} = await supabase.from("Students").upsert(
-        {
-            "firstname": firstname.value,
-            "lastname": lastname.value,
-            "group": group.value,
-            "active": active.value,
-            "lastFrom": "2022_01_01",
-            "lastTo": "2022_01_08",
-            "count": 0
-        })
-
-
-        firstname.value = []
-        lastname.value = []
-        group.value = []
-        active.value = []
         window.location.href = "#/students-table";
     }  
 

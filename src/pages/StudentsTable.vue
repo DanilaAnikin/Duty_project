@@ -7,7 +7,6 @@
 
   const props = defineProps(['admin'])
 
-
   const loadStudents = async () => {
       students.value = (await supabase.from('Students').select().order('id', {adcending: true})).data;
   }
@@ -28,11 +27,7 @@
     } else{}
   }
 
-
-
-
   onMounted(loadStudents);
-
 
 </script>
 
